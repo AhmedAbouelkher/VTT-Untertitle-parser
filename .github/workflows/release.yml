@@ -48,6 +48,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: build
+
+      - name: Display structure of downloaded files
+        run: ls -R
       
       - name: Bump version and push tag
         id: bump
@@ -61,5 +64,6 @@ jobs:
         with:
           files: build/**
           tag_name: ${{ steps.bump.outputs.new_tag }}
+          fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
