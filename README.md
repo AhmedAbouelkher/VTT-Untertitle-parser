@@ -1,4 +1,4 @@
-# VVT Untertitle parser
+# VTT Untertitle parser
 
 I am learning German 😃. this is a handy tool to parse the untertitles of the movies and series that I watch and translate them to English.
 
@@ -14,7 +14,7 @@ I am learning German 😃. this is a handy tool to parse the untertitles of the 
 ### Example
 
 ```shell
-go run main.go -src "de" -dst "en" ./data/untertitles.vvt
+go run main.go -src "de" -dst "en" ./data/untertitles.vtt
 ```
 
 ## How to get the untertitles?

@@ -24,32 +24,20 @@ jobs:
 
       - name: Build for ${{ matrix.goos }}-${{ matrix.goarch }}
         run: |
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags "-s -w" -o build/vvtParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags "-s -w" -o build/vttParser-${{ matrix.goos }}-${{ matrix.goarch }}
       
       - name: Compress binaries
         run: |
           cd build
-          tar -czf vvtParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz vvtParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          tar -czf vttParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz vttParser-${{ matrix.goos }}-${{ matrix.goarch }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: vvtParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
-          path: build/vvtParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download all build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: build
-
-      - name: Display structure of downloaded files
+          name: vttParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
+          path: build/vttParser-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
+      
+      - name: Display structure
         run: ls -R
       
       - name: Bump version and push tag
@@ -58,7 +46,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-
+      
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
