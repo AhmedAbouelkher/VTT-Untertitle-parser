@@ -9,12 +9,12 @@ I am learning German 😃. this is a handy tool to parse the untertitles of the 
 - Clone the repository
 - run `go mod tidy`
 - run `go run main.go -src <SOURCE_LANGUAGE> -dst <DESTINATION_LANGUAGE> <LOCAL_FILE_PATH>`
-- You will find a new file with the same name but starts with `translated_` in the same directory of the current script.
+- You will find a new file with the same name but starts with `translated_` in the same directory as the original file.
 
 ### Example
 
 ```shell
-go run main.go -src de -dst en ./data/untertitles.vvt
+go run main.go -src "de" -dst "en" ./data/untertitles.vvt
 ```
 
 ## How to get the untertitles?

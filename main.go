@@ -29,6 +29,7 @@ func main() {
 
 	if flag.NArg() < 1 {
 		fmt.Println("Usage: vtt-translate [flags] <file>")
+		fmt.Println("Creates a translated VTT file from the given file using Google Translate.")
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
@@ -54,8 +55,9 @@ func main() {
 	}
 
 	fileName := filepath.Base(filePath)
-
-	destFile, err := os.Create("translated_" + fileName)
+	dir := filepath.Dir(filePath)
+	trFilePath := filepath.Join(dir, "translated_"+fileName)
+	destFile, err := os.Create(trFilePath)
 	if err != nil {
 		panic(err)
 	}
@@ -85,7 +87,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("saved to translated_" + fileName)
+	fmt.Printf("Translated file saved as %s\n", trFilePath)
 }
 
 func renderLine(cap subtitles.Caption) string {
