@@ -2,8 +2,8 @@ name: Build and Release Project
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - main
 
 jobs:
   build:
@@ -48,10 +48,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: build
+      
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: build/**
+          tag_name: ${{ steps.bump.outputs.new_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
